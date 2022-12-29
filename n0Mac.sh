@@ -1,6 +1,8 @@
 #!/bin/bash
+
 NC='\033[0m' 			  # No Color
 Red='\033[1;31m'    # Red
+Green='\033[1;32m'  # Green
 echo -e $Red "
                                                                                                          
                                                                                                          
@@ -23,7 +25,7 @@ nn:::::::::::::::n0:::::0 000 0:::::0M::::::M M::::M M::::M M::::::M           a
                                                                                                          
                                                                                                          " $NC
 
-echo -e "=============================================================================================================[+]"
+echo -e $Green"=============================================================================================================[+]" $NC
 if [[ $EUID -ne 0 ]]; then
     echo $Red "This script must be run as root"
     exit 1
@@ -33,15 +35,13 @@ macchanger -l > vendor_list.txt
 mac1=$(shuf -n 1 vendor_list.txt | awk '{ print $3}')
 mac2=$(printf '%02x:%02x:%02x' $[RANDOM%256] $[RANDOM%256] $[RANDOM%256])
 macchanger -m "$mac1:$mac2" eth0  #Specify the interface you wanna change!
-path=$(locate n0Mac.sh)
-echo -e "=============================================================================================================[+]" 
+path=$(find / -name 'n0Mac.sh' -print -quit)
 
-if [[ $(crontab -l | grep "n0Mac.sh") ]]; then
+echo -e $Green"=============================================================================================================[+]" $NC
+
+if [[ $(cat /etc/crontab | grep "n0Mac.sh") ]]; then
   exit 1
 else 
-  crontab -l > crontab_new
-  echo "@reboot $path" >> crontab_new
-  crontab crontab_new
-  rm crontab_new
+  echo "@reboot root /bin/sh $path" >> /etc/crontab
 fi  
 
