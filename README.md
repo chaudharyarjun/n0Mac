@@ -7,11 +7,11 @@ Note: This tool is intended for educational purposes only. It is not intended fo
 
 Installation
 =============
-chmod +x install.sh
-./install.sh
+* chmod +x install.sh
+* ./install.sh
 
 
 Usage
 =====
-chmod +x n0Mac.sh
-./n0Mac.sh
+* chmod +x n0Mac.sh
+* ./n0Mac.sh
