@@ -1,3 +1,0 @@
-macchanger==1.7.0
-netifaces==0.10.4
-pyfiglet==0.7.5
